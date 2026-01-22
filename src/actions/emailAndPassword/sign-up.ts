@@ -36,10 +36,10 @@ export default async function signUp(initialState: IResponse, formData: FormData
 
   const schemaResponse = signupSchema.safeParse({ name, email, password })
 
-  console.log({ schemaResponse })
+  // console.log({ schemaResponse })
 
   if (!schemaResponse.success) {
-    console.log({ schemaResponseError: schemaResponse });
+    // console.log({ schemaResponseError: schemaResponse });
 
     const schemaError: ISchemaError = {}
 
@@ -64,7 +64,7 @@ export default async function signUp(initialState: IResponse, formData: FormData
 
     console.log({ response });
     if (response.user) {
-      return { success: true, message: "User created successfully", userCreated: true, redirectUrl: process.env.BETTER_AUTH_URL }
+      return { success: true, message: "User created successfully", userCreated: true, redirectUrl: `${process.env.BETTER_AUTH_URL}/signup/verify-email` }
     }
 
      return { success: false, message: "Error While Creating User", userCreated: false }

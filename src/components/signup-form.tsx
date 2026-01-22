@@ -28,7 +28,7 @@ export function SignupForm({
 
   if (state.redirectUrl) {
     router.push(state.redirectUrl);
-  }
+  } 
 
   return (
     <form action={formAction} className={cn("flex flex-col gap-6", className)} {...props}>
