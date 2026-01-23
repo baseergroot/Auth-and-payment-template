@@ -1,18 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a Authentication Template project bootstrapped with Nextjs App Router, Better Auth and Mongodb.
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repo:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/baseergroot/Auth-Template.git
 ```
+
+2. Enter project directory:
+```bash
+cd Auth-Template
+```
+
+3. Enter project directory:
+```bash
+
+
+BETTER_AUTH_SECRET= # Your better auth secret
+BETTER_AUTH_URL=http://localhost:3000 # Base URL of your app
+
+# Your Mongodb URI
+MONGODB_URI=
+
+# this from "https://app.brevo.com"
+EMAIL_ADDRESS=
+EMAIL_USER=
+EMAIL_PASS=
+
+# Get your keys from "https://console.cloud.google.com"
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+```
+
+4. Install dependencies:
+```bash
+pnpm i
+```
+
+5. Run project:
+```bash
+pnpm dev
+```
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -22,10 +53,11 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+To learn more about tech stack used in this project:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Better Auth](https://www.better-auth.com) - Self host authentication framework.
+- [Mongodb](https://www.mongodb.com) - NoSQL Database.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
