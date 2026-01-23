@@ -11,6 +11,6 @@ export default async function googleSignIn() {
   })
 
   console.log({googleRes: response});
-  redirect(response.url)
+  redirect(response.url!)
   
 }

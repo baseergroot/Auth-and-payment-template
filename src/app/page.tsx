@@ -1,4 +1,4 @@
-import LogoutButton from "@/components/logoutButton";
+import { DropdownMenuAvatar } from "@/components/dropDownProfile";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { Github } from "lucide-react";
@@ -24,7 +24,7 @@ export default async function Home() {
 
           {
             session ? (
-              <LogoutButton />
+              <DropdownMenuAvatar user={session.user} />
             ) :
               (
                 <Button>

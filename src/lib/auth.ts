@@ -2,7 +2,6 @@ import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { client } from "../db/connection/mongodb";
 import { nextCookies } from "better-auth/next-js";
-import emailjs from "@emailjs/nodejs";
 import { sendEmail } from "./email";
 
 export const auth = betterAuth({
