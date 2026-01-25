@@ -3,10 +3,49 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { client } from "../db/connection/mongodb";
 import { nextCookies } from "better-auth/next-js";
 import { sendEmail } from "./email";
+import { stripe } from "@better-auth/stripe"
+import Stripe from "stripe"
+
+
+const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: "2025-11-17.clover", // Latest API version as of Stripe SDK v20.0.0
+})
 
 export const auth = betterAuth({
   database: mongodbAdapter(await client()),
-  plugins: [nextCookies()],
+  plugins: [nextCookies(), stripe({
+    stripeClient,
+    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
+    createCustomerOnSignUp: true,
+    onCustomerCreate: async ({ stripeCustomer, user }, ctx) => {
+        // Do something with the newly created customer
+        console.log(`Customer ${stripeCustomer.id} created for user ${user.id}`);
+    },
+    subscription: {
+    enabled: true,
+    plans: [
+        {
+            name: "basic", // the name of the plan, it'll be automatically lower cased when stored in the database
+            priceId: "price_1StNAvR3wrpleq6dcLXjFZqv", // the price ID from stripe
+            limits: {
+                projects: 5,
+                storage: 10
+            }
+        },
+        // {
+        //     name: "pro",
+        //     priceId: "price_0987654321",
+        //     limits: {
+        //         projects: 20,
+        //         storage: 50
+        //     },
+        //     freeTrial: {
+        //         days: 14,
+        //     }
+        // }
+    ]
+}
+  })],
   user: {
     modelName: "users"
   },
