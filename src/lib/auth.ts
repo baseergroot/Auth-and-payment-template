@@ -26,23 +26,23 @@ export const auth = betterAuth({
     plans: [
         {
             name: "basic", // the name of the plan, it'll be automatically lower cased when stored in the database
-            priceId: "price_1StNAvR3wrpleq6dcLXjFZqv", // the price ID from stripe
+            priceId: process.env.BASIC_PRICE_ID, // the price ID from stripe
             limits: {
                 projects: 5,
                 storage: 10
             }
         },
-        // {
-        //     name: "pro",
-        //     priceId: "price_0987654321",
-        //     limits: {
-        //         projects: 20,
-        //         storage: 50
-        //     },
-        //     freeTrial: {
-        //         days: 14,
-        //     }
-        // }
+        {
+            name: "pro",
+            priceId: process.env.PRO_PRICE_ID, // the price ID from stripe
+            limits: {
+                projects: 20,
+                storage: 50
+            },
+            freeTrial: {
+                days: 14,
+            }
+        }
     ]
 }
   })],

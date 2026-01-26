@@ -1,68 +1,89 @@
-This is a Authentication Template project bootstrapped with Nextjs App Router, Better Auth and Mongodb.
+# Auth and Payment Template
+
+A Next.js application template featuring authentication and payment integration using Better Auth, MongoDB, Stripe, and social login.
+
+## Features
+
+- **Authentication**: Email/password signup and sign-in, Google OAuth
+- **Email Verification**: Using Brevo for email services
+- **Payment Integration**: Stripe for subscriptions with Basic and Pro plans
+- **Database**: MongoDB for user and subscription data
+- **UI Components**: Modern UI with custom components
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) - React framework
+- [Better Auth](https://www.better-auth.com) - Authentication framework
+- [MongoDB](https://www.mongodb.com) - NoSQL database
+- [Stripe](https://stripe.com) - Payment processing
+- [Brevo](https://www.brevo.com) - Email service
+- [Tailwind CSS](https://tailwindcss.com) - Styling
 
 ## Getting Started
 
-1. Clone the repo:
+1. Clone the repository:
 
 ```bash
-git clone https://github.com/baseergroot/Auth-Template.git
+git clone https://github.com/baseergroot/Auth-and-payment-template.git
 ```
 
-2. Enter project directory:
+2. Navigate to the project directory:
+
 ```bash
-cd Auth-Template
+cd auth-payment-template
 ```
 
-3. Enter project directory:
+3. Install dependencies:
+
 ```bash
+pnpm install
+```
 
+4. Set up environment variables:
 
-BETTER_AUTH_SECRET= # Your better auth secret
-BETTER_AUTH_URL=http://localhost:3000 # Base URL of your app
+Create a `.env` file in the root directory and fill in the required values for the following environment variables:
 
-# Your Mongodb URI
+```env
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=
 MONGODB_URI=
-
-# this from "https://app.brevo.com"
 EMAIL_ADDRESS=
 EMAIL_USER=
 EMAIL_PASS=
-
-# Get your keys from "https://console.cloud.google.com"
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-
+STRIPE_PUBLISHABLE=
+STRIPE_SECRET_KEY=
+BASIC_PRICE_ID=
+PRO_PRICE_ID=
+STRIPE_WEBHOOK_SECRET=
 ```
 
-4. Install dependencies:
-```bash
-pnpm i
-```
+5. Run the development server:
 
-5. Run project:
 ```bash
 pnpm dev
 ```
 
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/app/` - Next.js app router pages
+- `src/components/` - Reusable UI components
+- `src/actions/` - Server actions for auth and payments
+- `src/db/` - Database connection and models
+- `src/lib/` - Utility functions and configurations
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
+
+Deploy to [Vercel](https://vercel.com) or any platform supporting Next.js.
+
+Make sure to set all environment variables in your deployment platform's settings.
 
 ## Learn More
 
-To learn more about tech stack used in this project:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Better Auth](https://www.better-auth.com) - Self host authentication framework.
-- [Mongodb](https://www.mongodb.com) - NoSQL Database.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Better Auth Documentation](https://www.better-auth.com)
+- [Stripe Documentation](https://stripe.com/docs)
+- [MongoDB Documentation](https://docs.mongodb.com)
