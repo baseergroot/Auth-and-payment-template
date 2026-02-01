@@ -1,6 +1,6 @@
 "use server"
 import { auth } from "@/lib/auth";
-import { BetterAuthError } from "better-auth";
+import { APIError } from "better-auth";
 import { z } from "zod";
 
 const signupSchema = z.object({
@@ -24,14 +24,28 @@ export interface IResponse {
   error?: string
   credentialsError?: boolean
   redirectUrl?: string
+  userAlreadyExist?: boolean
+  passwordMismatchError?: boolean 
 }
 
 export default async function signUp(initialState: IResponse, formData: FormData): Promise<IResponse> {
 
-  const { name, email, password } = {
+  const { name, email, password, confirmPassword } = {
     name: formData.get("name") as string,
     email: formData.get("email") as string,
-    password: formData.get("password") as string
+    password: formData.get("password") as string,
+    confirmPassword: formData.get("confirm-password") as string
+  }
+
+  // console.log(`pass: ${password}, cpass: ${confirmPassword}`);
+  
+
+  if (password !== confirmPassword) {
+    console.log("pass missmatch");
+    
+    return {
+      success: false, passwordMismatchError: true, message: "Both passwords should be same"
+    }
   }
 
   const schemaResponse = signupSchema.safeParse({ name, email, password })
@@ -69,11 +83,11 @@ export default async function signUp(initialState: IResponse, formData: FormData
 
      return { success: false, message: "Error While Creating User", userCreated: false }
   } catch (error: unknown) {
-    if (error instanceof BetterAuthError) {
+    if (error instanceof APIError) {
       console.log({ betterAuthCatch: error });
-      return { success: false, betterAuthError: "error" }
+      return { success: false, userAlreadyExist: true, message: error.body?.message }
     }
     console.log({ error });
-    return { success: false, error: "error" }
+    return { success: false, error: "error", message: "something went wrong! try again later." }
   }
 } 

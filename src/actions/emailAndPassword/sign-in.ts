@@ -1,6 +1,6 @@
 "use server"
 import { auth } from "@/lib/auth";
-import { BetterAuthError } from "better-auth";
+import { APIError, BetterAuthError } from "better-auth";
 import { z } from "zod";
 import { IResponse } from "./sign-up";
 
@@ -59,11 +59,11 @@ export default async function signIn(initialState: IResponse, formData: FormData
     return { success: true, message: "Invalid credentials", credentialsError: true }
     
   } catch (error: unknown) {
-    if (error instanceof BetterAuthError) {
+    if (error instanceof APIError) {
       console.log({ betterAuthCatch: error });
-      return { success: false, betterAuthError: "error" }
+      return { success: false, message: "Invalid credentials", credentialsError: true }
     }
     console.log({ error });
-    return { success: false, error: "error" }
+    return { success: false, error: "something went wrong! try again" }
   }
 }

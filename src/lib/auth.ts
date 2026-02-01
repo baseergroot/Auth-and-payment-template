@@ -8,7 +8,7 @@ import Stripe from "stripe"
 
 
 const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-    apiVersion: "2025-12-15.clover", // Latest API version as of Stripe SDK v20.0.0
+  apiVersion: "2025-12-15.clover", // Latest API version as of Stripe SDK v20.0.0
 })
 
 export const auth = betterAuth({
@@ -18,33 +18,33 @@ export const auth = betterAuth({
     stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
     createCustomerOnSignUp: true,
     onCustomerCreate: async ({ stripeCustomer, user }, ctx) => {
-        // Do something with the newly created customer
-        console.log(`Customer ${stripeCustomer.id} created for user ${user.id}`);
+      // Do something with the newly created customer
+      console.log(`Customer ${stripeCustomer.id} created for user ${user.id}`);
     },
     subscription: {
-    enabled: true,
-    plans: [
+      enabled: true,
+      plans: [
         {
-            name: "basic", // the name of the plan, it'll be automatically lower cased when stored in the database
-            priceId: process.env.BASIC_PRICE_ID, // the price ID from stripe
-            limits: {
-                projects: 5,
-                storage: 10
-            }
+          name: "basic", // the name of the plan, it'll be automatically lower cased when stored in the database
+          priceId: process.env.BASIC_PRICE_ID, // the price ID from stripe
+          limits: {
+            projects: 5,
+            storage: 10
+          }
         },
         {
-            name: "pro",
-            priceId: process.env.PRO_PRICE_ID, // the price ID from stripe
-            limits: {
-                projects: 20,
-                storage: 50
-            },
-            freeTrial: {
-                days: 14,
-            }
+          name: "pro",
+          priceId: process.env.PRO_PRICE_ID, // the price ID from stripe
+          limits: {
+            projects: 20,
+            storage: 50
+          },
+          freeTrial: {
+            days: 14,
+          }
         }
-    ]
-}
+      ]
+    }
   })],
   user: {
     modelName: "users"
@@ -53,7 +53,14 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
-    autoSignIn: true
+    autoSignIn: true,
+    sendResetPassword: async ({ user, url }) => {
+      await sendEmail({
+        to: user.email,
+        subject: 'Reset your password',
+        html: `Click the link to reset your password: ${url}`
+      })
+    },
   },
 
   emailVerification: {
@@ -69,8 +76,10 @@ export const auth = betterAuth({
             <p style="margin-top: 20px; font-size: 12px; color: #666;">If the button doesn't work, copy this link: ${url}</p>
           </div>
         `,
-      });
+      })
+
     },
+
     autoSignInAfterVerification: true
   },
 
