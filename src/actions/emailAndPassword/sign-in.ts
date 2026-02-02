@@ -44,7 +44,7 @@ export default async function signIn(initialState: IResponse, formData: FormData
       body: {
         email,
         password,
-        callbackURL: "http://localhost:3000",
+        callbackURL: process.env.BETTER_AUTH_URL,
       },
     });
 
