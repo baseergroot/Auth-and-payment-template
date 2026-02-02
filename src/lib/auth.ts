@@ -58,7 +58,14 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: 'Reset your password',
-        html: `Click the link to reset your password: ${url}`
+        html: `
+          <div style="font-family: sans-serif; text-align: center;">
+            <h2>Password Reset Request</h2>
+            <p>Click the button below to reset your password.</p>
+            <a href="${url}" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">Reset Password</a>
+            <p style="margin-top: 20px; font-size: 12px; color: #666;">If the button doesn't work, copy this link: ${url}</p>
+          </div>
+        `
       })
     },
   },

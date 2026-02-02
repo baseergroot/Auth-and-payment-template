@@ -4,12 +4,13 @@ import ResetPasswordComp from '@/components/resetPassword'
 import { Suspense } from 'react'
 
  
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
-  searchParams: { token?: string} 
+  searchParams: Promise<{ token?: string}>
 }) {
-  const token = searchParams.token
+  const params = await searchParams
+  const token = params.token
 
   if (!token) {
     return (
@@ -21,7 +22,7 @@ export default function Page({
       </main>
     )
   }
-  
+
   return (
     <Suspense fallback={<>...</>}>
       <ResetPasswordComp token={token} />
