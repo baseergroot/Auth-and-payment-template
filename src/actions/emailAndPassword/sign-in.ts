@@ -1,6 +1,6 @@
 "use server"
 import { auth } from "@/lib/auth";
-import { APIError, BetterAuthError } from "better-auth";
+import { APIError } from "better-auth";
 import { z } from "zod";
 import { IResponse } from "./sign-up";
 
@@ -9,7 +9,7 @@ const signupSchema = z.object({
   password: z.string().min(8, "Password must be at least 8 characters long").max(20, "Password must be at most 20 characters long"),
 })
 
-export default async function signIn(initialState: IResponse, formData: FormData) {
+export default async function signIn(initialState: IResponse, formData: FormData): Promise<IResponse> {
 
   const { email, password } = {
     email: formData.get("email") as string,

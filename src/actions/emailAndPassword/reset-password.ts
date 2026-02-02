@@ -1,11 +1,16 @@
 "use server"
 
 import { auth } from "@/lib/auth";
-import { InitialStateI } from "./forgot-password";
 import { APIError } from "better-auth";
 import { redirect } from "next/navigation";
 
-export default async function resetPassword(token: string, initialState: InitialStateI, formData: FormData) {
+export interface ResetPasswordResponseI {
+  success?: boolean
+  status?: boolean
+  message?: string
+}
+
+export default async function resetPassword(token: string, initialState: ResetPasswordResponseI, formData: FormData): Promise<ResetPasswordResponseI> {
 
 
   try {
@@ -29,14 +34,14 @@ export default async function resetPassword(token: string, initialState: Initial
   } catch (error: unknown) {
     if (error instanceof APIError) {
       console.log({ APIError: error });
-      return error
+      return {success: false}
     }
-    if (error?.message == "NEXT_REDIRECT") {
+    if (error && typeof error === "object" && "message" in error && typeof (error as Record<string, unknown>).message === "string" && (error as Record<string, unknown>).message === "NEXT_REDIRECT") {
       console.log({ error });
       throw error; // Re-throw the error so Next.js can handle the redirect
     }
     console.log({ error });
-    return error
+    return {success: false}
 
   }
 }

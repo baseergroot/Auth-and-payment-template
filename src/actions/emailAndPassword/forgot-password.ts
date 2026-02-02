@@ -2,10 +2,13 @@
 import { auth } from "@/lib/auth";
 import { APIError } from "better-auth";
 
-export interface InitialStateI {
-  url: string
+
+export interface ForgotPasswordResponseI {
+  success: boolean
+  status?: boolean
+  message?: string
 }
-export default async function forgotPassword( initialState: InitialStateI, formData: FormData) {
+export default async function forgotPassword( initialState: ForgotPasswordResponseI, formData: FormData): Promise<ForgotPasswordResponseI> {
   console.log({email: formData.get("email")});
   
   try {
@@ -16,13 +19,13 @@ export default async function forgotPassword( initialState: InitialStateI, formD
       }
     })
     console.log({ forgotPasswordResponse });
-    return forgotPasswordResponse
+    return {success: true, status: forgotPasswordResponse.status, message: forgotPasswordResponse.message}
   } catch (error: unknown) {
     if (error instanceof APIError) {
       console.log({ApiError: error});
-      return error
+      return {success: false}
     }
     console.log({errorDefault: error});
-    return error
+    return {success: false}
   }
 }

@@ -1,10 +1,10 @@
 "use client"
-import forgotPassword, { InitialStateI } from '@/actions/emailAndPassword/forgot-password';
+import forgotPassword, { ForgotPasswordResponseI } from '@/actions/emailAndPassword/forgot-password';
 import { Button } from '@/components/ui/button'
 import React, { useActionState } from 'react'
 
-const initialState: InitialStateI = {
-  url: ""
+const initialState: ForgotPasswordResponseI = {
+  success: false,
 }
 
 
