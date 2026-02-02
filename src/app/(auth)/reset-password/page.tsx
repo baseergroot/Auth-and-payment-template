@@ -24,7 +24,7 @@ export default async function Page({
   }
 
   return (
-    <Suspense fallback={<>...</>}>
+    <Suspense fallback={<main className='w-screen h-screen flex items-center justify-center'>Loading....</main>}>
       <ResetPasswordComp token={token} />
     </Suspense>
   )
